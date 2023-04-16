@@ -217,3 +217,18 @@ As you can see, all of the information is stored in the clear; there
 is no encryption or password hashing.  If a hacker was to compromise
 the database, they could easily run a similar program to retrieve all
 of the users personal information and passwords.
+
+## After encryption is enforced
+
+You can see the original 4 registrations did not enforce encryption. <br/>
+The latest test has a new field called ```fullName```. The full name and password are encrypted:
+
+
+<img width="1406" alt="Screenshot 2023-04-16 at 21 01 13" src="https://user-images.githubusercontent.com/126002808/232339107-fd0f2a67-9788-46ee-8805-6035f46cd6bd.png">
+
+## Using Fernet for Encryption
+Fernet guarantees that a message encrypted using it cannot be manipulated or read without the key. <br/>
+Fernet is an implementation of symmetric (also known as “secret key”) authenticated cryptography. <br/>
+Fernet also has support for implementing key rotation via MultiFernet .
+
+<img width="781" alt="Screenshot 2023-04-16 at 20 23 14" src="https://user-images.githubusercontent.com/126002808/232339118-87385483-fafd-42c8-b3ca-bf56fbd0da12.png">
