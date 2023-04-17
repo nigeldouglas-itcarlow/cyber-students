@@ -237,3 +237,30 @@ Before and after the encryption - as seen in ```MongoDB Compass```
 
 <img width="1425" alt="Screenshot 2023-04-17 at 12 45 09" src="https://user-images.githubusercontent.com/126002808/232475005-1668efc0-e877-487b-8e48-a77a3535723c.png">
 
+## Using the git worklflow
+
+```git remote -v``` shows me which repo I'm currently connected to. <br/>
+```git remote set-url origin``` sets the desired Github account to push changes to.<br/>
+```git push -f``` forcefully pushes the changes to the Github branch - even if there is conflict <br/>
+```git status``` ensures I'm on the master branch. I don't want to commit to the wrong branch <br/>
+```git pull``` checks that everything is already up-to-date <br/>
+```git diff``` shows the differences between the file locally and in github <br/>
+```git add``` simply adds the files to the approval process <br/>
+```git commit``` commits the changes to GitHub ```-m``` flag is to add a description <br/>
+```git push```finally pushes the changes up to my Github master
+
+```
+git remote -v
+git remote set-url origin git@github.com:nigeldouglas-itcarlow/cyber-students.git
+git push - f
+git status
+git pull
+git diff requirements.txt
+git add requirements.txt
+git commit -m "adding password hasher package"
+git push
+```
+
+
+<img width="989" alt="Screenshot 2023-04-17 at 12 57 11" src="https://user-images.githubusercontent.com/126002808/232477451-2ec57205-df6c-4aea-84f4-91e76ce31937.png">
+
