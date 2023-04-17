@@ -232,3 +232,8 @@ Fernet is an implementation of symmetric (also known as “secret key”) authen
 Fernet also has support for implementing key rotation via MultiFernet .
 
 <img width="781" alt="Screenshot 2023-04-16 at 20 23 14" src="https://user-images.githubusercontent.com/126002808/232339118-87385483-fafd-42c8-b3ca-bf56fbd0da12.png">
+
+Before and after the encryption - as seen in ```MongoDB Compass```
+
+<img width="1425" alt="Screenshot 2023-04-17 at 12 45 09" src="https://user-images.githubusercontent.com/126002808/232475005-1668efc0-e877-487b-8e48-a77a3535723c.png">
+
