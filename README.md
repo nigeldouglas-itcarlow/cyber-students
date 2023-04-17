@@ -264,3 +264,17 @@ git push
 
 <img width="989" alt="Screenshot 2023-04-17 at 12 57 11" src="https://user-images.githubusercontent.com/126002808/232477451-2ec57205-df6c-4aea-84f4-91e76ce31937.png">
 
+## Creating GDPR fields
+I'm able to parse the full_name field to JSON:
+```
+curl -X POST http://localhost:4000/students/api/registration -d "{\"email\": \"happier@setu.com\", \"password\": \"happier\", \"displayName\": \"happier\", \"fullName\": \"Mr. Happy\"}"
+{"email": "happier@setu.com", "displayName": "happier", "fullName": "Mr. Happy"}%
+```
+
+However, I'm unable to parse the phone_number field to JSON:
+```
+curl -X POST http://localhost:4000/students/api/registration -d "{\"email\": \"happier@setu.com\", \"password\": \"happier\", \"displayName\": \"happier\", \"fullName\": \"Mr. Happy\", \phoneNumber\": \"02136541\"}"
+```
+
+![Screenshot 2023-04-17 at 14 51 12](https://user-images.githubusercontent.com/126002808/232504982-38655cb0-ab72-4d92-b4fd-6bde356e3c8d.png)
+
