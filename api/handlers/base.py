@@ -7,9 +7,22 @@ class BaseHandler(RequestHandler):
     def db(self):
         return self.application.db
 
+
     @property
     def executor(self):
         return self.application.executor
+
+    def decrypt(self, value):
+        return self.application.fernet.decrypt(value).decode()
+
+    def encrypt(self, value):
+        return self.application.fernet.encrypt(str.encode(value, encoding="utf8"))
+
+    def hash(self, value):
+        return self.application.password_hasher.hash(value)
+
+    def verify(self, hash_str, value):
+        return self.application.password_hasher.verify(hash_str, value)
 
     def prepare(self):
         if self.request.body:
@@ -17,7 +30,7 @@ class BaseHandler(RequestHandler):
                 json_data = loads(self.request.body)
                 self.request.arguments.update(json_data)
             except ValueError:
-                self.send_error(400, message='Unable to parse JSON.')
+                self.send_error(400, message='Unable to parse this bloody JSON.')
         self.response = dict()
 
     def set_default_headers(self):

@@ -1,3 +1,4 @@
+from argon2.exceptions import VerifyMismatchError
 from datetime import datetime, timedelta
 from time import mktime
 from tornado.escape import json_decode, utf8
@@ -5,6 +6,7 @@ from tornado.gen import coroutine
 from uuid import uuid4
 
 from .base import BaseHandler
+
 
 class LoginHandler(BaseHandler):
 
@@ -42,7 +44,7 @@ class LoginHandler(BaseHandler):
             return
 
         if not email:
-            self.send_error(400, message='The email address is invalid!')
+            self.send_error(400, message='The email address is super invalid!')
             return
 
         if not password:
@@ -59,7 +61,9 @@ class LoginHandler(BaseHandler):
             self.send_error(403, message='The email address and password are invalid!')
             return
 
-        if user['password'] != password:
+        try:
+            self.verify(user['password'], password)
+        except VerifyMismatchError:
             self.send_error(403, message='The email address and password are invalid!')
             return
 

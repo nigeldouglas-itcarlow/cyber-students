@@ -18,10 +18,16 @@ class RegistrationHandlerTest(BaseTest):
 
     def test_registration(self):
         email = 'test@test.com'
+        full_name = 'testFullName'
+        phone_number = 'testPhoneNumber'
+        disability_type = 'testDisability'
         display_name = 'testDisplayName'
 
         body = {
           'email': email,
+          'fullName': full_name,
+          'phoneNumber': phone_number,
+          'disability': disability_type,
           'password': 'testPassword',
           'displayName': display_name
         }
@@ -31,6 +37,9 @@ class RegistrationHandlerTest(BaseTest):
 
         body_2 = json_decode(response.body)
         self.assertEqual(email, body_2['email'])
+        self.assertEqual(full_name, body_2['fullName'])
+        self.assertEqual(phone_number, body_2['phoneNumber'])
+        self.assertEqual(disability_type, body_2['disability'])
         self.assertEqual(display_name, body_2['displayName'])
 
     def test_registration_without_display_name(self):

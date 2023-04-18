@@ -5,6 +5,7 @@ from tornado.ioloop import IOLoop
 from api.conf import PORT
 from api.app import Application
 
+
 def main():
     basicConfig(level=INFO)
 
@@ -13,6 +14,7 @@ def main():
 
     info('Starting server on port ' + str(PORT) + '...')
     IOLoop.current().start()
+
 
 if __name__ == '__main__':
     main()

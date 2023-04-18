@@ -21,7 +21,10 @@ class LoginHandlerTest(BaseTest):
     def register(self):
         yield self.get_app().db.users.insert_one({
             'email': self.email,
-            'password': self.password,
+            'fullName': self.encrypt('testFullName'),
+            'phoneNumber': self.encrypt('testPhoneNumber'),
+            'disability': self.encrypt('testDisability'),
+            'password': self.hash(self.password),
             'displayName': 'testDisplayName'
         })
 

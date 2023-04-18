@@ -22,7 +22,10 @@ class UserHandlerTest(BaseTest):
     def register(self):
         yield self.get_app().db.users.insert_one({
             'email': self.email,
-            'password': self.password,
+            'fullName': self.encrypt(self.full_name),
+            'phoneNumber': self.encrypt(self.phone_number),
+            'disability': self.encrypt(self.disability_type),
+            'password': self.hash(self.password),
             'displayName': self.display_name
         })
 
@@ -38,6 +41,9 @@ class UserHandlerTest(BaseTest):
         super().setUp()
 
         self.email = 'test@test.com'
+        self.full_name = 'testFullName'
+        self.phone_number = 'testPhoneNumber'
+        self.disability_type = 'testDisability'
         self.password = 'testPassword'
         self.display_name = 'testDisplayName'
         self.token = 'testToken'
@@ -53,6 +59,9 @@ class UserHandlerTest(BaseTest):
 
         body_2 = json_decode(response.body)
         self.assertEqual(self.email, body_2['email'])
+        self.assertEqual(self.full_name, body_2['fullName'])
+        self.assertEqual(self.phone_number, body_2['phoneNumber'])
+        self.assertEqual(self.disability_type, body_2['disability'])
         self.assertEqual(self.display_name, body_2['displayName'])
 
     def test_user_without_token(self):

@@ -10,6 +10,9 @@ from api.conf import MONGODB_HOST, MONGODB_DBNAME
 def get_users(db):
   cur = db.users.find({}, {
     'email': 1,
+    'fullName': 1,
+    'phoneNumber': 1,
+    'disability': 1,
     'password': 1,
     'displayName': 1,
   })

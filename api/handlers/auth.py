@@ -4,6 +4,7 @@ from tornado.gen import coroutine
 
 from .base import BaseHandler
 
+
 class AuthHandler(BaseHandler):
 
     @coroutine
@@ -26,6 +27,9 @@ class AuthHandler(BaseHandler):
             'token': token
         }, {
             'email': 1,
+            'fullName': 1,
+            'phoneNumber': 1,
+            'disability': 1,
             'displayName': 1,
             'expiresIn': 1
         })
@@ -41,7 +45,13 @@ class AuthHandler(BaseHandler):
             self.send_error(403, message='Your token has expired!')
             return
 
+        full_name = user.get('fullName', '')
+        if full_name:
+            full_name = self.decrypt(full_name)
         self.current_user = {
             'email': user['email'],
+            'full_name': full_name,
+            'phoneNumber': user['phone_number'],
+            'disability': user['disability'],
             'display_name': user['displayName']
         }
