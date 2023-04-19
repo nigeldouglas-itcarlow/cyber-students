@@ -12,7 +12,7 @@ def main():
     http_server = HTTPServer(Application())
     http_server.listen(PORT)
 
-    info('Starting server on port ' + str(PORT) + '...')
+    info('Nigel has a server starting on port ' + str(PORT) + '...')
     IOLoop.current().start()
 
 

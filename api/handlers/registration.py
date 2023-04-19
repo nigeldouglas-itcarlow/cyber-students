@@ -1,3 +1,4 @@
+import re
 from tornado.escape import json_decode, utf8
 from tornado.gen import coroutine
 
@@ -11,7 +12,7 @@ class RegistrationHandler(BaseHandler):
         try:
             body = json_decode(self.request.body)
             email = body['email'].lower().strip()
-            print (email)
+            print(email)
             if not isinstance(email, str):
                 raise Exception()
             password = body['password']
@@ -43,6 +44,15 @@ class RegistrationHandler(BaseHandler):
             self.send_error(400, message='The password is invalid!')
             return
 
+        password_pattern = re.compile(r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d]{6,}$')
+        if not password_pattern.match(password):
+            self.send_error(400, message='The password must contain at least one uppercase letter, one lowercase letter, and one digit, and be at least 6 characters long.')
+            return
+
+        if len(password) < 14:
+            self.send_error(400, message='The password must be at least 14 characters long!')
+            return
+
         if not display_name:
             self.send_error(400, message='The display name is invalid!')
             return
@@ -54,6 +64,8 @@ class RegistrationHandler(BaseHandler):
         if user is not None:
             self.send_error(409, message='A user with the given email address already exists!')
             return
+
+        print("hello world")
 
         yield self.db.users.insert_one({
             'email': email,
