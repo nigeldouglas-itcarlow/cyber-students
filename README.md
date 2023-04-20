@@ -361,3 +361,7 @@ There was a long learning curve when working with git
 
 <img width="1223" alt="Screenshot 2023-04-20 at 09 06 46" src="https://user-images.githubusercontent.com/126002808/233287552-6c5e1ce7-5bec-4885-a61f-b38fe9df9100.png">
 
+However, I was able to add /modify files in the end:
+
+<img width="1223" alt="Screenshot 2023-04-20 at 09 12 07" src="https://user-images.githubusercontent.com/126002808/233288645-13e36fcc-beee-4c8d-b989-bf25e6af5a92.png">
+
