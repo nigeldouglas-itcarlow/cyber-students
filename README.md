@@ -357,3 +357,7 @@ I made sure to install the ```python-dotenv``` package by running ```pip install
 
 <img width="1223" alt="Screenshot 2023-04-20 at 08 47 23" src="https://user-images.githubusercontent.com/126002808/233283435-33d1e08e-6a43-4c3e-ae5a-752b3a60ef6e.png">
 
+There was a long learning curve when working with git
+
+<img width="1223" alt="Screenshot 2023-04-20 at 09 06 46" src="https://user-images.githubusercontent.com/126002808/233287552-6c5e1ce7-5bec-4885-a61f-b38fe9df9100.png">
+
