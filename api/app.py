@@ -1,43 +1,49 @@
-from argon2 import PasswordHasher
-from concurrent.futures import ThreadPoolExecutor
-from motor import MotorClient
+import os
+from dotenv import load_dotenv
+
+# Load environment variables from secret.env file
+load_dotenv('secret.env')
+
+# Get the encryption key from the environment variables
+encryption_key = os.getenv('ENCRYPTION_KEY')
+print('Encryption key:', encryption_key)
+
+# Decode the encryption key from a string to bytes
+key = encryption_key.encode('utf-8')
+
+# Perform a simple test using the encryption key
 from cryptography.fernet import Fernet
-from tornado.web import Application
 
-from .conf import MONGODB_HOST, MONGODB_DBNAME, WORKERS
+# Generate a random message
+message = b'This is a test message'
 
-from .handlers.welcome import WelcomeHandler
-from .handlers.registration import RegistrationHandler
-from .handlers.login import LoginHandler
-from .handlers.logout import LogoutHandler
-from .handlers.user import UserHandler
+# Encrypt the message using the encryption key
+fernet = Fernet(key)
+encrypted_message = fernet.encrypt(message)
 
+# Decrypt the message using the encryption key
+decrypted_message = fernet.decrypt(encrypted_message)
 
-class Application(Application):
+# Print the original message and the decrypted message
+print('Original message:', message)
+print('Decrypted message:', decrypted_message)
 
-    def __init__(self):
-        handlers = [
-            (r'/students/?', WelcomeHandler),
-            (r'/students/api/?', WelcomeHandler),
-            (r'/students/api/registration', RegistrationHandler),
-            (r'/students/api/login', LoginHandler),
-            (r'/students/api/logout', LogoutHandler),
-            (r'/students/api/user', UserHandler)
-        ]
+# Import the required modules
+from tornado.ioloop import IOLoop
+from tornado.httpserver import HTTPServer
 
-        settings = dict()
+def main():
+    from api.app import make_app
 
-        super(Application, self).__init__(handlers, **settings)
+    # Create a new HTTP server
+    http_server = HTTPServer(make_app())
 
-        self.db = MotorClient(**MONGODB_HOST)[MONGODB_DBNAME]
+    # Listen on port 8888
+    http_server.listen(8888)
 
-        # I intend to call this file from a secure location - ie: KMS (Key Management System)
-        # This is the encryption key. It's not normal behaviour to load this into the code
-        # In my next commit, I intend to load this from a file locally
-        key = b'OfegPNE8TI_tXLoPA4iC3ibJeU-xrVFsmg0VYUgNh9I='
+    # Start the I/O loop
+    print("Running MyApp application")
+    IOLoop.current().start()
 
-        self.fernet = Fernet(key)
-
-        self.password_hasher = PasswordHasher()
-
-        self.executor = ThreadPoolExecutor(WORKERS)
+if __name__ == "__main__":
+    main()
