@@ -2,8 +2,8 @@ from logging import basicConfig, INFO, info
 from tornado.httpserver import HTTPServer
 from tornado.ioloop import IOLoop
 
-from api.conf import PORT
 from api.app import Application
+from api.conf import PORT
 
 
 def main():
