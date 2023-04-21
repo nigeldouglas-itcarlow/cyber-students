@@ -1,5 +1,9 @@
 import os
+from cryptography.fernet import Fernet
 from dotenv import load_dotenv
+from tornado.httpserver import HTTPServer
+from tornado.ioloop import IOLoop
+from api.app import make_app
 
 # Load environment variables from secret.env file
 load_dotenv('secret.env')
@@ -12,8 +16,6 @@ print('Encryption key:', encryption_key)
 key = encryption_key.encode('utf-8')
 
 # Perform a simple test using the encryption key
-from cryptography.fernet import Fernet
-
 # Generate a random message
 message = b'This is a test message'
 
@@ -28,13 +30,7 @@ decrypted_message = fernet.decrypt(encrypted_message)
 print('Original message:', message)
 print('Decrypted message:', decrypted_message)
 
-# Import the required modules
-from tornado.ioloop import IOLoop
-from tornado.httpserver import HTTPServer
-
 def main():
-    from api.app import make_app
-
     # Create a new HTTP server
     http_server = HTTPServer(make_app())
 
