@@ -3,7 +3,7 @@ from cryptography.fernet import Fernet
 from dotenv import load_dotenv
 from tornado.httpserver import HTTPServer
 from tornado.ioloop import IOLoop
-from api.app import make_app
+from api.app import app
 
 # Load environment variables from secret.env file
 load_dotenv('secret.env')
@@ -32,7 +32,7 @@ print('Decrypted message:', decrypted_message)
 
 def main():
     # Create a new HTTP server
-    http_server = HTTPServer(make_app())
+    http_server = HTTPServer(app())
 
     # Listen on port 8888
     http_server.listen(8888)
