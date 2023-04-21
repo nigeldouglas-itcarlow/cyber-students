@@ -2,5 +2,6 @@ argon2-cffi==21.3.0
 click==8.0.4
 cryptography==36.0.2
 motor==2.5.1
+python-dotenv==0.19.1
 python-git-info==0.7.1
 tornado==6.1
