@@ -52,6 +52,28 @@ class AuthHandler(BaseHandler):
             'email': user['email'],
             'full_name': full_name,
             'phoneNumber': user['phone_number'],
-            'disability': user['disability'],
-            'display_name': user['displayName']
+            'disability': user['disability_type'],
+            'display_name': user['display_name']
+        }
+
+        phone_number = user.get('phoneNumber', '')
+        if phone_number:
+            self.decrypt(phone_number)
+        self.current_user = {
+            'email': user['email'],
+            'full_name': full_name,
+            'phoneNumber': user['phone_number'],
+            'disability': user['disability_type'],
+            'display_name': user['display_name']
+        }
+
+        disability_type = user.get('fullName', '')
+        if disability_type:
+            self.decrypt(disability_type)
+        self.disability_type = {
+            'email': user['email'],
+            'full_name': full_name,
+            'phoneNumber': user['phone_number'],
+            'disability': user['disability_type'],
+            'display_name': user['display_name']
         }
