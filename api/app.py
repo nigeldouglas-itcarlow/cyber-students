@@ -3,8 +3,8 @@ from argon2 import PasswordHasher
 from concurrent.futures import ThreadPoolExecutor
 from motor import MotorClient
 from cryptography.fernet import Fernet
-from dotenv import load_dotenv
 from tornado.web import Application
+from dotenv import load_dotenv
 
 from .conf import MONGODB_HOST, MONGODB_DBNAME, WORKERS
 
@@ -30,30 +30,10 @@ class Application(Application):
         super(Application, self).__init__(handlers, **settings)
         self.db = MotorClient(**MONGODB_HOST)[MONGODB_DBNAME]
 
-        # Load environment variables from secret.env file
+        # Load the encryption key from an environment variable
         load_dotenv('secret.env')
+        key = os.getenv('ENCRYPTION_KEY').encode('utf-8')
 
-        # Get the encryption key from the environment variables
-        encryption_key = os.getenv('ENCRYPTION_KEY')
-        print('Encryption key:', encryption_key)
-
-        # Decode the encryption key from a string to bytes
-        key = encryption_key.encode('utf-8')
-
-        # Perform a simple test using the encryption key
-        # Generate a random message
-        message = b'This is a test message'
-
-        # Encrypt the message using the encryption key
         self.fernet = Fernet(key)
-        encrypted_message = self.fernet.encrypt(message)
-
-        # Decrypt the message using the encryption key
-        decrypted_message = self.fernet.decrypt(encrypted_message)
-
-        # Print the original message and the decrypted message
-        print('Original message:', message)
-        print('Decrypted message:', decrypted_message)
-
         self.password_hasher = PasswordHasher()
         self.executor = ThreadPoolExecutor(WORKERS)
