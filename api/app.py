@@ -1,22 +1,28 @@
-import os
-from argon2 import PasswordHasher
-from concurrent.futures import ThreadPoolExecutor
-from motor import MotorClient
-from cryptography.fernet import Fernet
-from tornado.web import Application
-from dotenv import load_dotenv
+import os  # Provides functions for interacting with the operating system
+from argon2 import PasswordHasher  # Provides password hashing functionality
+from concurrent.futures import ThreadPoolExecutor  # Provides a way to execute code asynchronously using threads
+from motor import MotorClient  # Provides an asynchronous MongoDB driver
+from cryptography.fernet import Fernet  # Provides symmetric encryption using the AES algorithm
+from tornado.web import Application  # Provides a framework for building web applications
+from dotenv import load_dotenv  # Provides a way to load environment variables from a file
 
-from .conf import MONGODB_HOST, MONGODB_DBNAME, WORKERS
-
-from .handlers.welcome import WelcomeHandler
+from .conf import MONGODB_HOST, MONGODB_DBNAME, WORKERS  # Import configuration variables
+from .handlers.welcome import WelcomeHandler  # Import request handler classes
 from .handlers.registration import RegistrationHandler
 from .handlers.login import LoginHandler
 from .handlers.logout import LogoutHandler
 from .handlers.user import UserHandler
 
 class Application(Application):
+    """
+    The main application class, which inherits from the Tornado Application class.
+    """
 
     def __init__(self):
+        """
+        Initializes the application and sets up its components.
+        """
+        # Define the request handlers for the application
         handlers = [
             (r'/students/?', WelcomeHandler),
             (r'/students/api/?', WelcomeHandler),
@@ -26,14 +32,18 @@ class Application(Application):
             (r'/students/api/user', UserHandler)
         ]
 
+        # Set up the application settings
         settings = dict()
         super(Application, self).__init__(handlers, **settings)
+
+        # Set up the database connection
         self.db = MotorClient(**MONGODB_HOST)[MONGODB_DBNAME]
 
         # Load the encryption key from an environment variable
         load_dotenv('secret.env')
         key = os.getenv('ENCRYPTION_KEY').encode('utf-8')
 
+        # Set up the encryption, password hashing, and thread pool components
         self.fernet = Fernet(key)
         self.password_hasher = PasswordHasher()
         self.executor = ThreadPoolExecutor(WORKERS)
