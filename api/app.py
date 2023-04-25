@@ -1,10 +1,16 @@
 import os  # Provides functions for interacting with the operating system
-from argon2 import PasswordHasher  # Provides password hashing functionality
-from concurrent.futures import ThreadPoolExecutor  # Provides a way to execute code asynchronously using threads
-from motor import MotorClient  # Provides an asynchronous MongoDB driver
-from cryptography.fernet import Fernet  # Provides symmetric encryption using the AES algorithm
-from tornado.web import Application  # Provides a framework for building web applications
-from dotenv import load_dotenv  # Provides a way to load environment variables from a file
+# Provides password hashing functionality
+from argon2 import PasswordHasher
+# Provides a way to execute code asynchronously using threads
+from concurrent.futures import ThreadPoolExecutor
+# Provides an asynchronous MongoDB driver
+from motor import MotorClient
+# Provides symmetric encryption using the AES algorithm
+from cryptography.fernet import Fernet
+# Provides a framework for building web applications
+from tornado.web import Application
+# Provides a way to load environment variables from a file
+from dotenv import load_dotenv
 
 from .conf import MONGODB_HOST, MONGODB_DBNAME, WORKERS  # Import configuration variables
 from .handlers.welcome import WelcomeHandler  # Import request handler classes
