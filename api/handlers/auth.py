@@ -48,11 +48,17 @@ class AuthHandler(BaseHandler):
         full_name = user.get('fullName', '')
         if full_name:
             full_name = self.decrypt(full_name)
+        phone_number = user.get('phoneNumber', '')
+        if phone_number:
+            phone_number = self.decrypt(phone_number)
+        disability_type = user.get('disability', '')
+        if disability_type:
+            disability_type = self.decrypt(disability_type)
         self.current_user = {
             'email': user['email'],
             'full_name': full_name,
-            'phoneNumber': user['phone_number'],
-            'disability': user['disability_type'],
+            'phone_number': phone_number,
+            'disability_type': disability_type,
             'display_name': user['display_name']
         }
 
