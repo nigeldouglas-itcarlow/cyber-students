@@ -42,7 +42,7 @@ class Application(Application):
         settings = dict()
         super(Application, self).__init__(handlers, **settings)
 
-        # Set up the database connection
+        # Set up the database connection (hello)
         self.db = MotorClient(**MONGODB_HOST)[MONGODB_DBNAME]
 
         # Load the encryption key from an environment variable
