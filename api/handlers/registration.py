@@ -75,8 +75,10 @@ class RegistrationHandler(BaseHandler):
         if user is not None:
             self.send_error(409, message='A user with the given email address already exists!')
             return
-        # adds the day of the week automatically
-        day_of_week = datetime.now().strftime('%A')
+        # adds the day of the week and date automatically
+        now = datetime.now()
+        day_of_week = now.strftime('%A')
+        date = now.strftime('%d/%m/%Y')
         # If all validation checks pass, insert new user record into the database
         yield self.db.users.insert_one({
             'email': email,
@@ -85,7 +87,8 @@ class RegistrationHandler(BaseHandler):
             'disability': self.encrypt(disability_type),
             'password': self.hash(password),
             'displayName': display_name,
-            'dayOfWeek': day_of_week
+            'dayOfWeek': day_of_week,
+            'date': date
         })
         # Set HTTP status code to 200 OK
         self.set_status(200)
@@ -96,4 +99,5 @@ class RegistrationHandler(BaseHandler):
         self.response['phoneNumber'] = phone_number
         self.response['disability'] = disability_type
         self.response['dayOfWeek'] = day_of_week
+        self.response['date'] = date
         self.write_json()
