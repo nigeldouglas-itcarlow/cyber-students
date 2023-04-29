@@ -5,3 +5,4 @@ motor==3.1.2
 python-dotenv==1.0.0
 python-git-info==0.8.3
 tornado==6.3.1
+passlib==1.7.4
