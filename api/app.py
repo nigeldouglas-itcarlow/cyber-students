@@ -1,20 +1,11 @@
-# Provides functions for interacting with the OS
 import os
-# Provides password hashing functionality
-from argon2 import PasswordHasher
-# Provides a way to execute code asynchronously using threads
+import argon2
 from concurrent.futures import ThreadPoolExecutor
-# Provides an asynchronous MongoDB driver
-from motor import MotorClient
-# Provides symmetric encryption using the AES algorithm
+from motor import motor_asyncio as ma
 from cryptography.fernet import Fernet
-# Provides a framework for building web applications
 from tornado.web import Application
-# Provides a way to load environment variables from a file
 from dotenv import load_dotenv
-# Import configuration variables
 from .conf import MONGODB_HOST, MONGODB_DBNAME, WORKERS
-# Import request handler classes
 from .handlers.welcome import WelcomeHandler
 from .handlers.registration import RegistrationHandler
 from .handlers.login import LoginHandler
@@ -22,15 +13,8 @@ from .handlers.logout import LogoutHandler
 from .handlers.user import UserHandler
 
 class Application(Application):
-    """
-    The main application class, which inherits from the Tornado Application class.
-    """
 
     def __init__(self):
-        """
-        Initializes the application and sets up its components.
-        """
-        # Define the request handlers for the application
         handlers = [
             (r'/students/?', WelcomeHandler),
             (r'/students/api/?', WelcomeHandler),
@@ -40,24 +24,16 @@ class Application(Application):
             (r'/students/api/user', UserHandler)
         ]
 
-        # Set up the application settings
         settings = dict()
         super(Application, self).__init__(handlers, **settings)
 
-        # Set up the database connection (hello)
-        self.db = MotorClient(**MONGODB_HOST)[MONGODB_DBNAME]
+        self.db = ma.AsyncIOMotorClient(**MONGODB_HOST)[MONGODB_DBNAME]
 
-        # Load the encryption key from an environment variable
         load_dotenv('secret.env')
         key = os.getenv('ENCRYPTION_KEY').encode('utf-8')
 
         # Set up the encryption, password hashing, and thread pool components
         self.fernet = Fernet(key)
-        # The PasswordHasher() function creates an instance of the PasswordHasher class provided by the passlib library.
-        # I set will set the number of rounds to 4 and the salt size to 16 bytes.
-        # This unfortunately leads to weaker hash, as number of rounds and size of salt are factors in strength of hash.
-        # Increasing these values increases security of hashes, but also increase the time required to generate it.
-        self.password_hasher = PasswordHasher(rounds=4, salt_size=16)
-        # By default, PasswordHasher uses the Argon2 algorithm with recommended settings
-        # These default considerations include memory usage, parallelism, and iterations.
+        self.password_hasher = argon2.PasswordHasher(
+            time_cost=4, memory_cost=102400, parallelism=8, hash_len=16, salt_len=16)
         self.executor = ThreadPoolExecutor(WORKERS)
