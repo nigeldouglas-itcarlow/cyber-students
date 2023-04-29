@@ -53,5 +53,12 @@ class Application(Application):
 
         # Set up the encryption, password hashing, and thread pool components
         self.fernet = Fernet(key)
+        # The PasswordHasher() function creates an instance of the PasswordHasher class provided by the passlib library.
+        # This class provides a simple interface for securely hashing passwords using a variety of algorithms
+        # Such as Argon2, bcrypt, and PBKDF2.
         self.password_hasher = PasswordHasher()
+        # By default, PasswordHasher uses the Argon2 algorithm with recommended settings
+        # These include memory usage, parallelism, and iterations.
+        # I want to modify the number of rounds and the size of the salt used in the hash function
+        # I will attempt to pass arguments to the PasswordHasher constructor.
         self.executor = ThreadPoolExecutor(WORKERS)
