@@ -1,14 +1,13 @@
 from json import dumps
-from tornado.escape import json_decode, utf8
+
+from tornado.escape import json_decode
 from tornado.gen import coroutine
 from tornado.ioloop import IOLoop
 from tornado.web import Application
 
+from api.handlers.login import LoginHandler
 from .base import BaseTest
 
-from api.handlers.login import LoginHandler
-
-import urllib.parse
 
 class LoginHandlerTest(BaseTest):
 

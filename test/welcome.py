@@ -1,11 +1,9 @@
 from tornado.escape import json_decode
-from tornado.ioloop import IOLoop
-from tornado.testing import AsyncHTTPTestCase
 from tornado.web import Application
 
 from api.handlers.welcome import WelcomeHandler
-
 from .base import BaseTest
+
 
 class WelcomeHandlerTest(BaseTest):
 
