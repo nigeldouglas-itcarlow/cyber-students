@@ -365,3 +365,8 @@ However, I was able to add /modify files in the end:
 
 <img width="1223" alt="Screenshot 2023-04-20 at 09 12 07" src="https://user-images.githubusercontent.com/126002808/233288645-13e36fcc-beee-4c8d-b989-bf25e6af5a92.png">
 
+## Merging all changes
+
+When I felt the project was in a working state, I merged from ```nigel-branch``` to the ```master``` branch 
+
+<img width="762" alt="Screenshot 2023-04-29 at 23 03 44" src="https://user-images.githubusercontent.com/126002808/235325941-178bfaf0-b758-4b69-bc93-a2650b243333.png">
