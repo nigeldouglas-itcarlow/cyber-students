@@ -1,4 +1,5 @@
-import os  # Provides functions for interacting with the operating system
+# Provides functions for interacting with the OS
+import os
 # Provides password hashing functionality
 from argon2 import PasswordHasher
 # Provides a way to execute code asynchronously using threads
@@ -11,9 +12,10 @@ from cryptography.fernet import Fernet
 from tornado.web import Application
 # Provides a way to load environment variables from a file
 from dotenv import load_dotenv
-
-from .conf import MONGODB_HOST, MONGODB_DBNAME, WORKERS  # Import configuration variables
-from .handlers.welcome import WelcomeHandler  # Import request handler classes
+# Import configuration variables
+from .conf import MONGODB_HOST, MONGODB_DBNAME, WORKERS
+# Import request handler classes
+from .handlers.welcome import WelcomeHandler
 from .handlers.registration import RegistrationHandler
 from .handlers.login import LoginHandler
 from .handlers.logout import LogoutHandler
