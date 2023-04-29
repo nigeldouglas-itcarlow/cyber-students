@@ -1,6 +1,7 @@
 import re
 from tornado.escape import json_decode, utf8
 from tornado.gen import coroutine
+from datetime import datetime
 
 from .base import BaseHandler
 
@@ -74,8 +75,8 @@ class RegistrationHandler(BaseHandler):
         if user is not None:
             self.send_error(409, message='A user with the given email address already exists!')
             return
-        # does nothing, just prints my name
-        print("Nigel Douglas")
+        # adds the day of the week automatically
+        day_of_week = datetime.now().strftime('%A')
         # If all validation checks pass, insert new user record into the database
         yield self.db.users.insert_one({
             'email': email,
@@ -83,7 +84,8 @@ class RegistrationHandler(BaseHandler):
             'phoneNumber': self.encrypt(phone_number),
             'disability': self.encrypt(disability_type),
             'password': self.hash(password),
-            'displayName': display_name
+            'displayName': display_name,
+            'dayOfWeek': day_of_week
         })
         # Set HTTP status code to 200 OK
         self.set_status(200)
@@ -93,4 +95,5 @@ class RegistrationHandler(BaseHandler):
         self.response['fullName'] = full_name
         self.response['phoneNumber'] = phone_number
         self.response['disability'] = disability_type
+        self.response['dayOfWeek'] = day_of_week
         self.write_json()
