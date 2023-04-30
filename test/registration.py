@@ -32,7 +32,7 @@ class RegistrationHandlerTest(BaseTest):
           'fullName': full_name,
           'phoneNumber': phone_number,
           'disability': disability_type,
-          'password': 'testPassword',
+          'password': 'testPasswordxxxxxxxxxxxxxxx1',
           'displayName': display_name
         }
 
@@ -57,7 +57,7 @@ class RegistrationHandlerTest(BaseTest):
         # Set up the request body with input data (excluding display name)
         body = {
           'email': email,
-          'password': 'testPassword'
+          'password': 'testPasswordxxxxxxxxxxxxxxx1'
         }
 
         # Send a POST request to the /registration endpoint with the input data
@@ -76,7 +76,7 @@ class RegistrationHandlerTest(BaseTest):
         # Set up the request body with input data
         body = {
           'email': 'test@test.com',
-          'password': 'testPassword',
+          'password': 'testPasswordxxxxxxxxxxxxxxx1',
           'displayName': 'testDisplayName'
         }
 
