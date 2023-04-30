@@ -54,7 +54,7 @@ class UserHandlerTest(BaseTest):
         self.full_name = 'testFullName'
         self.phone_number = 'testPhoneNumber'
         self.disability_type = 'testDisability'
-        self.password = 'testPassword'
+        self.password = 'testPasswordxxxxxxxxxx'
         self.display_name = 'testDisplayName'
         self.token = 'testToken'
 
