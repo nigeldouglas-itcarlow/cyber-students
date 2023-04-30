@@ -74,34 +74,10 @@ class AuthHandler(BaseHandler):
             'full_name': full_name,
             'phone_number': phone_number,
             'disability_type': disability_type,
-            'display_name': user['display_name']
+            'display_name': user['displayName']
         }
 
-        # Decrypt phone_number and create a current user object
-        phone_number = user.get('phoneNumber', '')
-        if phone_number:
-            self.decrypt(phone_number)
-        self.current_user = {
-            'email': user['email'],
-            'full_name': full_name,
-            'phoneNumber': user['phone_number'],
-            'disability': user['disability_type'],
-            'display_name': user['display_name']
-        }
-
-        # Decrypt disability_type and create a disability_type object
-        disability_type = user.get('fullName', '')
-        if disability_type:
-            self.decrypt(disability_type)
-        self.disability_type = {
-            'email': user['email'],
-            'full_name': full_name,
-            'phoneNumber': user['phone_number'],
-            'disability': user['disability_type'],
-            'display_name': user['display_name']
-        }
-
-# This is a Python code module defining a AuthHandler class that inherits from a BaseHandler class.
-# The prepare() method gets called before every request and performs authentication by checking ...
-# if a token is present in the request headers and querying the database for the associated user.
-# If the token is missing or invalid, an error response is returned.
+# This is a Python code module defines an AuthHandler class that inherits from the BaseHandler class.
+# The prepare() method gets called before every request and performs authentication by checking;
+# 1. If a token is present in the request headers and querying the DB for the associated user.
+# 2. If the token is missing or invalid, an error response is returned.
