@@ -77,7 +77,8 @@ class AuthHandler(BaseHandler):
             'display_name': user['displayName']
         }
 
-# This is a Python code module defines an AuthHandler class that inherits from the BaseHandler class.
-# The prepare() method gets called before every request and performs authentication by checking;
-# 1. If a token is present in the request headers and querying the DB for the associated user.
-# 2. If the token is missing or invalid, an error response is returned.
+# Based on base.py codebase, the decrypt function is defined as a method of the BaseHandler class.
+# This means that any class that inherits from BaseHandler will also have access to this method.
+# self.decrypt method was called in the code is referencing the decrypt method defined in the BaseHandler class.
+# Decrypt method in BaseHandler uses the fernet object defined in the Application class to decrypt the given value
+# It uses the existing Fernet symmetric encryption algorithm.
